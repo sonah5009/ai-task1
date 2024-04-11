@@ -3,19 +3,19 @@
     import { read, utils, writeFileXLSX } from 'xlsx';
 
     /* the component state is an array of presidents */
-    let pres = [];
+    let sheet = [];
     onMount(async () => {
-    const file = 'src/lib/task1.xlsx'; // Path to your local XLSX file
+    const file = '/src/lib/task1.xlsx'; // Path to your local XLSX file
     const data = await fetch(file);
     const arrayBuffer = await data.arrayBuffer();
     const wb = read(arrayBuffer);
     const ws = wb.Sheets[wb.SheetNames[0]];
-    pres = utils.sheet_to_json(ws);
+    sheet = utils.sheet_to_json(ws);
 });
 
     /* get state data and export to XLSX */
     function exportFile() {
-        const ws = utils.json_to_sheet(pres);
+        const ws = utils.json_to_sheet(sheet);
         const wb = utils.book_new();
         utils.book_append_sheet(wb, ws, "Data");
         writeFileXLSX(wb, "suna_task1.xlsx");
@@ -33,12 +33,12 @@
     </tr>
 </thead>
     <tbody>
-    {#each pres as p}
+    {#each sheet as s}
     <tr>
-      <td>{p.Data_Preprocessing}</td>
-      <td>{p.Models}</td>
-      <td>{p.Performance_Metrics}</td>
-      <td>{p.Description}</td>
+      <td>{s.Data_Preprocessing}</td>
+      <td>{s.Models}</td>
+      <td>{s.Performance_Metrics}</td>
+      <td>{s.Description}</td>
     </tr>{/each}
     </tbody><tfoot><td colSpan={4}>
     <button on:click={exportFile}>Export XLSX</button>
