@@ -3,15 +3,8 @@
     import { read, utils, writeFileXLSX } from 'xlsx';
 
     /* the component state is an array of presidents */
-    let sheet = [];
-    onMount(async () => {
-    const file = '/src/lib/task1.xlsx'; // Path to your local XLSX file
-    const data = await fetch(file);
-    const arrayBuffer = await data.arrayBuffer();
-    const wb = read(arrayBuffer);
-    const ws = wb.Sheets[wb.SheetNames[0]];
-    sheet = utils.sheet_to_json(ws);
-});
+    const src = '/src/lib/task1_excel.png'; // Path to your task1_excel.png file
+
 
     /* get state data and export to XLSX */
     function exportFile() {
@@ -22,24 +15,5 @@
     }
 </script>
 <h1>Submission: Block End-to-End Machine LearningAssignment</h1>
-<p>This is excel.</p>
-<table>
-    <thead>
-    <tr>
-        <th>Data_Preprocessing</th>
-        <th>Models</th>
-        <th>Performance_Metrics</th>
-        <th>Description</th>
-    </tr>
-</thead>
-    <tbody>
-    {#each sheet as s}
-    <tr>
-      <td>{s.Data_Preprocessing}</td>
-      <td>{s.Models}</td>
-      <td>{s.Performance_Metrics}</td>
-      <td>{s.Description}</td>
-    </tr>{/each}
-    </tbody><tfoot><td colSpan={4}>
-    <button on:click={exportFile}>Export XLSX</button>
-    </td></tfoot></table>
+
+<img {src} alt="excel image" width="100%"/>
